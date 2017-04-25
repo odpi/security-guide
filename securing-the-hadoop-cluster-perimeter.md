@@ -35,209 +35,113 @@ The proxying services of Apache Knox represent the primary charter of the Knox c
 
 **Listing 1. sandbox.xml an Example Topology File**
 
-> &lt;topology&gt;
+```
+<topology>
+    <gateway>
+        <provider>
+            <role>authentication</role>
+            <name>ShiroProvider</name>
+            <enabled>true</enabled>
+            <param>
+                <name>sessionTimeout</name>
+                <value>30</value>
+            </param>
+            <param>
+                <name>main.ldapRealm</name>
+                <value>org.apache.hadoop.gateway.shirorealm.KnoxLdapRealm</value>
+            </param>
+            <param>
+                <name>main.ldapContextFactory</name>
+                <value>org.apache.hadoop.gateway.shirorealm.KnoxLdapContextFactory</value>
+            </param>
+            <param>
+                <name>main.ldapRealm.contextFactory</name>
+                <value>$ldapContextFactory</value>
+            </param>
+            <param>
+                <name>main.ldapRealm.userDnTemplate</name>
+                <value>uid={0},ou=people,dc=hadoop,dc=apache,dc=org</value>
+            </param>
+            <param>
+                <name>main.ldapRealm.contextFactory.url</name>
+                <value>ldap://localhost:33389</value>
+            </param>
+            <param>
+                <name>main.ldapRealm.contextFactory.authenticationMechanism</name>
+                <value>simple</value>
+            </param>
+            <param>
+                <name>urls./**</name>
+                <value>authcBasic</value>
+            </param>
+        </provider>
+        <provider>
+            <role>identity-assertion</role>
+            <name>Default</name>
+            <enabled>true</enabled>
+        </provider>
+        <provider>
+            <role>authorization</role>
+            <name>AclsAuthz</name>
+            <enabled>true</enabled>
+        </provider>
+    </gateway>
 
-> &lt;gateway&gt;
+    <service>
+        <role>NAMENODE</role>
+        <url>hdfs://localhost:8020</url>
+    </service>
+    <service>
+        <role>JOBTRACKER</role>
+        <url>rpc://localhost:8050</url>
+    </service>
+    <service>
+       <role>KNOXTOKEN</role>
+       <param>
+          <name>knox.token.ttl</name>
+          <value>300000000</value>
+       </param>
+       <param>
+          <name>knox.token.audiences</name>
+          <value>tokenbased</value>
+       </param>
+       <param>
+          <name>knox.token.target.url</name>
+          <value>https://localhost:8443/gateway/tokenbased</value>
+       </param>
+       <param>
+          <name>knox.token.client.data</name>
+          <value>cookie.name=hadoop-jwt,test=value</value>
+       </param>
+    </service>
+    <service>
+        <role>WEBHDFS</role>
+        <url>http://localhost:50070/webhdfs</url>
+    </service>
+    <service>
+        <role>WEBHCAT</role>
+        <url>http://localhost:50111/templeton</url>
+    </service>
+    <service>
+        <role>OOZIE</role>
+        <url>http://localhost:11000/oozie</url>
+    </service>
+    <service>
+        <role>WEBHBASE</role>
+        <url>http://localhost:60080</url>
+    </service>
+    <service>
+        <role>HIVE</role>
+        <url>http://localhost:10001/cliservice</url>
+    </service>
+    <service>
+        <role>RESOURCEMANAGER</role>
+        <url>http://localhost:8088/ws</url>
+    </service>
+</topology>
+```
 
-> &lt;provider&gt;
->
->             &lt;role&gt;authentication&lt;/role&gt;
->
->             &lt;name&gt;ShiroProvider&lt;/name&gt;
->
->             &lt;enabled&gt;true&lt;/enabled&gt;
->
->             &lt;param&gt;
 
-> &lt;name&gt;sessionTimeout&lt;/name&gt;
->
->                 &lt;value&gt;30&lt;/value&gt;
->
->             &lt;/param&gt;
->
->             &lt;param&gt;
->
->                 &lt;name&gt;main.ldapRealm&lt;/name&gt;
->
->                 &lt;value&gt;org.apache.hadoop.gateway.shirorealm.KnoxLdapRealm&lt;/value&gt;
->
->             &lt;/param&gt;
->
->             &lt;param&gt;
->
->                 &lt;name&gt;main.ldapContextFactory&lt;/name&gt;
->
->                 &lt;value&gt;org.apache.hadoop.gateway.shirorealm.KnoxLdapContextFactory&lt;/value&gt;
->
->             &lt;/param&gt;
->
->             &lt;param&gt;
->
->                 &lt;name&gt;main.ldapRealm.contextFactory&lt;/name&gt;
->
->                 &lt;value&gt;$ldapContextFactory&lt;/value&gt;
->
->             &lt;/param&gt;
->
->             &lt;param&gt;
->
->                 &lt;name&gt;main.ldapRealm.userDnTemplate&lt;/name&gt;
->
->                 &lt;value&gt;uid={0},ou=people,dc=hadoop,dc=apache,dc=org&lt;/value&gt;
->
->             &lt;/param&gt;
->
->             &lt;param&gt;
->
->                 &lt;name&gt;main.ldapRealm.contextFactory.url&lt;/name&gt;
->
->                 &lt;value&gt;ldap://localhost:33389&lt;/value&gt;
->
->             &lt;/param&gt;
->
->             &lt;param&gt;
->
->                 &lt;name&gt;main.ldapRealm.contextFactory.authenticationMechanism&lt;/name&gt;
->
->                 &lt;value&gt;simple&lt;/value&gt;
->
->             &lt;/param&gt;
->
->             &lt;param&gt;
->
->                 &lt;name&gt;urls./\*\*&lt;/name&gt;
->
->                 &lt;value&gt;authcBasic&lt;/value&gt;
->
->             &lt;/param&gt;
->
->         &lt;/provider&gt;
-
-> &lt;provider&gt;
->
->             &lt;role&gt;identity-assertion&lt;/role&gt;
->
->             &lt;name&gt;Default&lt;/name&gt;
->
->             &lt;enabled&gt;true&lt;/enabled&gt;
->
->         &lt;/provider&gt;
-
-> &lt;provider&gt;
->
->             &lt;role&gt;authorization&lt;/role&gt;
->
->             &lt;name&gt;AclsAuthz&lt;/name&gt;
->
->             &lt;enabled&gt;true&lt;/enabled&gt;
->
->         &lt;/provider&gt;
->
->     &lt;/gateway&gt;
-
-> &lt;service&gt;
->
->         &lt;role&gt;NAMENODE&lt;/role&gt;
->
->         &lt;url&gt;hdfs://localhost:8020&lt;/url&gt;
->
->     &lt;/service&gt;
-
-> &lt;service&gt;
->
->         &lt;role&gt;JOBTRACKER&lt;/role&gt;
->
->         &lt;url&gt;rpc://localhost:8050&lt;/url&gt;
->
->     &lt;/service&gt;
-
-> &lt;service&gt;
->
->        &lt;role&gt;KNOXTOKEN&lt;/role&gt;
->
->        &lt;param&gt;
->
->           &lt;name&gt;knox.token.ttl&lt;/name&gt;
->
->           &lt;value&gt;300000000&lt;/value&gt;
->
->        &lt;/param&gt;
->
->        &lt;param&gt;
->
->           &lt;name&gt;knox.token.audiences&lt;/name&gt;
->
->           &lt;value&gt;tokenbased&lt;/value&gt;
->
->        &lt;/param&gt;
->
->        &lt;param&gt;
->
->           &lt;name&gt;knox.token.target.url&lt;/name&gt;
->
->           &lt;value&gt;https://localhost:8443/gateway/tokenbased&lt;/value&gt;
->
->        &lt;/param&gt;
->
->        &lt;param&gt;
->
->           &lt;name&gt;knox.token.client.data&lt;/name&gt;
->
->           &lt;value&gt;cookie.name=hadoop-jwt,test=value&lt;/value&gt;
->
->        &lt;/param&gt;
->
->     &lt;/service&gt;
-
-> &lt;service&gt;
->
->         &lt;role&gt;WEBHDFS&lt;/role&gt;
->
->         &lt;url&gt;http://localhost:50070/webhdfs&lt;/url&gt;
->
->     &lt;/service&gt;
-
-> &lt;service&gt;
->
->         &lt;role&gt;WEBHCAT&lt;/role&gt;
->
->         &lt;url&gt;http://localhost:50111/templeton&lt;/url&gt;
->
->     &lt;/service&gt;
-
-> &lt;service&gt;
->
->         &lt;role&gt;OOZIE&lt;/role&gt;
->
->         &lt;url&gt;http://localhost:11000/oozie&lt;/url&gt;
->
->     &lt;/service&gt;
-
-> &lt;service&gt;
->
->         &lt;role&gt;WEBHBASE&lt;/role&gt;
->
->         &lt;url&gt;http://localhost:60080&lt;/url&gt;
->
->     &lt;/service&gt;
-
-> &lt;service&gt;
->
->         &lt;role&gt;HIVE&lt;/role&gt;
->
->         &lt;url&gt;http://localhost:10001/cliservice&lt;/url&gt;
->
->     &lt;/service&gt;
-
-> &lt;service&gt;
->
->         &lt;role&gt;RESOURCEMANAGER&lt;/role&gt;
->
->         &lt;url&gt;http://localhost:8088/ws&lt;/url&gt;
->
->     &lt;/service&gt;
->
-> &lt;/topology&gt;
 
 The above listing illustrates the use of the authentication provider called the ShiroProvider. This is the default provider for Apache Knox and is generally used for HTTP Basic Authentication against an LDAP or Active Directory server within the deployment or enterprise. It is one of a number of out-of-the-box authentication and federation providers for Apache Knox. This particular configuration assumes the use of the DEMO LDAP server for Knox and is not intended to be used in production.
 
