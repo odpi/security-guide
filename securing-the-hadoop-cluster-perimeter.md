@@ -244,11 +244,11 @@ The same JWT token that is used for KnoxToken sessions is also used for KnoxSSO.
             <enabled>true</enabled>
         </provider>
     </gateway>
-    
+
     <application>
       <name>knoxauth</name>
     </application>
-    
+
     <service>
         <role>KNOXSSO</role>
         <param>
@@ -279,7 +279,7 @@ Alternatively, the SSOCookieProvider may be leveraged within a topology to proxy
 
 # Client Services of Apache Knox
 
-The gateway-shell module of Apache Knox is the provider of Client Services for the project. This module includes two separate programming models for interacting with Apache Knox through the use of a Apache Groovy based DSL or by using the underlying classes directly as a Java SDK.
+The gateway-shell module of Apache Knox is the provider of Client Services for the project. This module includes two separate programming models for interacting with Apache Knox through the use of a Apache Groovy based DSL or by using the underlying classes directly as a Java SDK. [Apache documentation](http://knox.apache.org/books/knox-0-12-0/user-guide.html#Client+Details)
 
 While typical REST/HTTP clients may be used to interact with Apache Knox, the client services provided by the gateway-shell module has some nice integrations built in for establishing token based sessions using the Authentication Services of Knox and powerful async capabilities within the DSL for writing scripts to be executed from the client desktop against Apache Knox within the perimeter.
 
