@@ -43,6 +43,8 @@ Users typically interact with Hadoop using a browser or component CLI, while app
 
 You will need to consider encryption for each individual services in your Hadoop cluster. The Hadoop SSL Keystore Factory manages SSL for core services that communicate with other cluster services over HTTP, such as MapReduce, YARN, and HDFS. Other components that have services that are typically not distributed, or only receive HTTP connections directly from clients, use built-in Java JDK SSL tools. Examples include HBase and Oozie.
 
+Consult each service or your distribution document on how to setup HTTPS. You should also consider disabling or blocking HTTP connection if allowed in conjunction with HTTPS.
+
 ## JDBC Encryption
 
 HiveServer2 implements encryption with Java SASL protocol’s quality of protection \(QOP\) setting. With this the data moving between a HiveServer2 over JDBC and a JDBC client can be encrypted.
