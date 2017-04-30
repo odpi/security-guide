@@ -4,7 +4,7 @@ Encryption is applied to electronic information to ensure its privacy and confid
 
 ## Hadoop RPC Encryption
 
-The most common way for a client to interact with a Hadoop cluster is through RPC. A client connects to a NameNode over RPC protocol to read or write a file. RPC connections in Hadoop use the Java Simple Authentication and Security Layer \(SASL\) which supports encryption. When the`hadoop.rpc.protection`property is set to privacy, the data over RPC is encrypted with symmetric keys.
+The most common way for a client to interact with a Hadoop cluster is through RPC. A client connects to a NameNode over RPC protocol to read or write a file. RPC connections in Hadoop use the Java Simple Authentication and Security Layer \(SASL\) which supports encryption. When the `hadoop.rpc.protection`property is set to privacy, the data over RPC is encrypted with symmetric keys.
 
 Enable Encrypted RPC by setting the following properties in`core-site.xml`.
 
@@ -35,20 +35,17 @@ Note: Secondary NameNode is not supported with the HTTPS port. It can only be ac
 
 When data moves between the Mappers and the Reducers over the HTTP protocol, this step is called shuffle. Reducer initiates the connection to the Mapper to ask for data; it acts as an SSL client.
 
-See https://hadoop.apache.org/docs/r2.7.1/hadoop-mapreduce-client/hadoop-mapreduce-client-core/EncryptedShuffle.html
+See [https://hadoop.apache.org/docs/r2.7.1/hadoop-mapreduce-client/hadoop-mapreduce-client-core/EncryptedShuffle.html](https://hadoop.apache.org/docs/r2.7.1/hadoop-mapreduce-client/hadoop-mapreduce-client-core/EncryptedShuffle.html)
 
 ### HTTPS encryption
 
 Users typically interact with Hadoop using a browser or component CLI, while applications use REST APIs or Thrift. Encryption over the HTTP protocol is implemented with the support for SSL across a Hadoop cluster and for the individual components such as Ambari.
 
+You will need to consider encryption for each individual services in your Hadoop cluster. The Hadoop SSL Keystore Factory manages SSL for core services that communicate with other cluster services over HTTP, such as MapReduce, YARN, and HDFS. Other components that have services that are typically not distributed, or only receive HTTP connections directly from clients, use built-in Java JDK SSL tools. Examples include HBase and Oozie.
+
 ## JDBC Encryption
 
 HiveServer2 implements encryption with Java SASL protocol’s quality of protection \(QOP\) setting. With this the data moving between a HiveServer2 over JDBC and a JDBC client can be encrypted.
 
-See https://cwiki.apache.org/confluence/display/Hive/Setting+Up+HiveServer2\#SettingUpHiveServer2-SSLEncryption  
-
-
-
-
-
+See [https://cwiki.apache.org/confluence/display/Hive/Setting+Up+HiveServer2\#SettingUpHiveServer2-SSLEncryption](https://cwiki.apache.org/confluence/display/Hive/Setting+Up+HiveServer2#SettingUpHiveServer2-SSLEncryption)
 
