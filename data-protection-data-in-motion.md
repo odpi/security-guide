@@ -45,6 +45,8 @@ You will need to consider encryption for each individual services in your Hadoop
 
 Consult each service or your distribution document on how to setup HTTPS. You should also consider disabling or blocking HTTP connection if allowed in conjunction with HTTPS.
 
+When enabling support for SSL, it is important to know which SSL Management method is being used by the Hadoop service. Services that are co-located on a host must configure the server certificate and keys, and in some cases the client truststore, in the Hadoop SSL Keystore Factory and JDK locations. When using CA signed certificates, configure the Hadoop SSL Keystore Factory to use the Java keystore and truststore locations.
+
 ## JDBC Encryption
 
 HiveServer2 implements encryption with Java SASL protocol’s quality of protection \(QOP\) setting. With this the data moving between a HiveServer2 over JDBC and a JDBC client can be encrypted.
