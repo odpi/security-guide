@@ -2,7 +2,7 @@
 
 Computer security is a critical part of conducting business in today’s information processing economy. Companies need to take a pro-active view when it comes to the setup, configuration and administration of their information systems. At its core, security should be looking to protect the privacy and the integrity of the data.
 
-Over the years technology has evolved such that systems are becoming more complex. The advancement of cloud computing and service oriented architecture, make it hard for IT architects and professionals to design and understand potential security risks and impact which could compromise their systems.
+Over the years technology has evolved such that systems are becoming more complex. The advancement of cloud computing and service oriented architecture make it hard for IT architects and professionals to design and understand potential security risks and impact which could compromise their systems.
 
 When looking into designing secure systems, one has to think in term of:
 
