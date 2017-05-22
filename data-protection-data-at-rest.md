@@ -16,7 +16,7 @@ You can also use file system encryption such as eCryptfs. See [https://en.wikipe
 
 ## Application Level Encryption
 
-TBD.
+You can decide to encrypt and decrypt data at the application level. While this might be more onerous, it is more precise as the application knows which data needs to be encrypted or not.
 
 ## HDFS Data Encryption
 
