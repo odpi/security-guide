@@ -87,4 +87,7 @@ To capitalize on the capabilities of HDFS data at rest encryption, you will need
 2. **HDFS service user**: the system-level account traditionally associated with HDFS. By default this is user hdfs in HDP. This account owns the HDFS DataNode and NameNode processes.
 
 
+For more details regarding HDFS transparent encryption see http://hadoop.apache.org/docs/current/hadoop-project-dist/hadoop-hdfs/TransparentEncryption.html
+
+
 
