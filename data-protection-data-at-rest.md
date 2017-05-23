@@ -60,14 +60,14 @@ Each encryption zone must be defined using an empty directory and an existing en
 Follow these steps:
 
 1. As HDFS administrator, create a new empty directory. For example:  
-       `# hdfs dfs -mkdir /zone_encr`
+   `# hdfs dfs -mkdir /zone_encr`
 
 2. Using the encryption key, make the directory an encryption zone. For example:  
-    `# hdfs crypto -createZone -keyName key1 -path /zone_encr`   
+   `# hdfs crypto -createZone -keyName key1 -path /zone_encr`
    When finished, the NameNode will recognize the folder as an HDFS encryption zone.
 
-3. To verify creation of the new encryption zone, run the crypto -listZones command as an HDFS administrator.     You should see the encryption zone and its key. For example:   
-   `$ hdfs crypto -listZones     /zone-encr  key1`
+3. To verify creation of the new encryption zone, run the crypto -listZones command as an HDFS administrator.     You should see the encryption zone and its key. For example:
+   `$ hdfs crypto -listZones /zone-encr key1`
 
 **Note**: The following property \(in the hdfs-default.xml file\) causes listZone requests to be batched. This improves NameNode performance. The property specifies the maximum number of zones that will be returned in a batch.
 
@@ -88,6 +88,3 @@ To capitalize on the capabilities of HDFS data at rest encryption, you will need
 
 
 For more details regarding HDFS transparent encryption see http://hadoop.apache.org/docs/current/hadoop-project-dist/hadoop-hdfs/TransparentEncryption.html
-
-
-
