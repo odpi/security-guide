@@ -66,7 +66,7 @@ Follow these steps:
    `# hdfs crypto -createZone -keyName key1 -path /zone_encr`
    When finished, the NameNode will recognize the folder as an HDFS encryption zone.
 
-3. To verify creation of the new encryption zone, run the crypto -listZones command as an HDFS administrator.     You should see the encryption zone and its key. For example:
+3. To verify creation of the new encryption zone, run the crypto -listZones command as an HDFS administrator. You should see the encryption zone and its key. For example:
    `$ hdfs crypto -listZones /zone-encr key1`
 
 **Note**: The following property \(in the hdfs-default.xml file\) causes listZone requests to be batched. This improves NameNode performance. The property specifies the maximum number of zones that will be returned in a batch.
