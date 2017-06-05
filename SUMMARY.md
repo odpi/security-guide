@@ -5,4 +5,5 @@
 * [Securing the Hadoop Cluster Perimeter](securing-the-hadoop-cluster-perimeter.md)
 * [Data Protection: Data in Motion](data-protection-data-in-motion.md)
 * [Data Protection: Data at Rest](data-protection-data-at-rest.md)
+* [Auditing](auditing.md)
 
